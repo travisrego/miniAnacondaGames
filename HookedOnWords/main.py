@@ -96,5 +96,14 @@ words = {
     "dinosaur": "Brachiosaurus"
 }
 
-# Grab Hint from the Dictonary
-hint = rdm.choice(list(words.keys())); # First grab only the keys from the key-value dictionary. Then convert it into list using list() then choose randomly a key from the list.
+hintList = list(words.keys());
+valueList = list(words.values());
+
+# Grab index from the Dictonary
+index = rdm.choice(range(len(hintList)));
+
+# Grab the hint of corresponding index from the Dictonary
+hint = hintList[index];
+
+# Grab the value of corresponding index from the Dictonary
+value = valueList[index];
