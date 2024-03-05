@@ -1,5 +1,7 @@
 import random as rdm
 
+censorValue = "";
+chances = 7; 
 words = {
     "animal": "zebra",
     "fruit": "banana",
@@ -94,7 +96,7 @@ words = {
     "mammal": "tiger",
     "rodent": "squirrel",
     "dinosaur": "Brachiosaurus"
-}
+};
 
 hintList = list(words.keys());
 valueList = list(words.values());
@@ -107,3 +109,6 @@ hint = hintList[index];
 
 # Grab the value of corresponding index from the Dictonary
 value = valueList[index];
+
+for censor in range(len(value)):
+    censorValue += "*"; 
