@@ -2,6 +2,9 @@ import random as rdm
 
 censorValue = "";
 chances = 7; 
+sameCharacterIndices = [];
+tempList = []
+
 words = {
     "animal": "zebra",
     "fruit": "banana",
@@ -110,5 +113,41 @@ hint = hintList[index];
 # Grab the value of corresponding index from the Dictonary
 value = valueList[index];
 
+# Censor the value
 for censor in range(len(value)):
     censorValue += "*"; 
+
+# Convert value into an array of characters
+listOfLetters = list(value);
+letterCount = 0;
+index = 0; 
+charPosition = 0;
+
+print(value)
+while (True):
+    char = input("Guess a character or the word: ");
+    # Censoring and uncensoring mechanism
+    for letter in listOfLetters:
+        if letter == char:
+            tempList.append(letter)
+        else:
+            tempList.append("*")      
+    listOfLetters = tempList; 
+
+    print(listOfLetters);
+    break    
+
+# for letter in listOfLetters:
+#         if (letter == char):
+#             sameCharacterIndices.append(charPosition);
+#             index += 1;
+#         charPosition += 1;
+# make a for loop and then save the index of the repeating characters using the for loop 
+# for (i=0; i<5; i++) {
+#   for (j=0; j<5; j++) {
+#       if (chars[i] == value) {
+#       	tempArray[j] = i; 
+#       }
+#   }
+# }
+# make an array to store all the indices value in the array. 
