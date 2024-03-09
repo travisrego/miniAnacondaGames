@@ -1,9 +1,9 @@
 import random as rdm
 
 censorValue = "";
-chances = 7; 
-sameCharacterIndices = [];
-tempList = []
+lives = 7; 
+tempList = [];
+guessedLetters = [];
 
 words = {
     "animal": "zebra",
@@ -114,29 +114,74 @@ hint = hintList[index];
 value = valueList[index];
 
 # Censor the value
-for censor in range(len(value)):
-    censorValue += "*"; 
+for censor in value:
+    if censor != " ":
+        censorValue += "*"
+    else:
+        censorValue += " "
 
 # Convert value into an array of characters
-listOfLetters = list(value);
 letterCount = 0;
 index = 0; 
 charPosition = 0;
-
+iteration = 0 
 print(value)
-while (True):
-    char = input("Guess a character or the word: ");
-    # Censoring and uncensoring mechanism
-    for letter in listOfLetters:
-        if letter == char:
-            tempList.append(letter)
+while (lives):
+    # Number of attempts
+    iteration += 1;
+    # Check if the censorValue is finally guessed
+    if censorValue.lower() == value.lower():
+        tempList = list(value);
+        remainLives = lives; 
+        attempts = 7-lives+iteration;
+        #  Break the while loop
+        lives = 0;
+
+    isPresent = False;
+    print(f"Lives: {lives}");
+    print(f"Hint: {hint}");
+    print(f"{censorValue}");
+    char = input("Guess a character or the whole word: ");
+    char = char.lower();
+    guessedLetters.append(char);
+    tempList = [];
+    # Censor and uncensoring mechanism
+    for letter in value:
+        retainCase = letter;
+        letter = letter.lower();
+        if letter in guessedLetters:
+            tempList.append(retainCase);
+            if letter == char:
+                isPresent = True;
+        elif letter == " ":
+            tempList.append(" ");
+        # If the whole word is guessed
+        elif (char.lower() == value.lower()):
+            tempList = list(value);
+            remainLives = lives; 
+            attempts = 7-lives+iteration;
+            # Break the while loop
+            lives = 0;
+            # Break the for loop
+            break;
         else:
-            tempList.append("*")      
-    listOfLetters = tempList; 
+            tempList.append("*");
+    
+    censorValue = "".join(tempList);
 
-    print(listOfLetters);
-    break    
+    # Remove a life if guessed wrong
+    if (isPresent != True and lives > 0):
+        lives -= 1;
 
+if (censorValue.lower() == value.lower() and attempts > 1):
+    print(f"You survived! You guessed the word correctly in {attempts} attempts with {remainLives} lives remaining!"); 
+elif (attempts == 1):
+    print(f"You survived! You guessed the word correctly in your first attempt!"); 
+else: 
+    print(f"You died! You did not guess the word. The word was {value}");
+
+
+# sameCharacterIndices = [];
 # for letter in listOfLetters:
 #         if (letter == char):
 #             sameCharacterIndices.append(charPosition);
