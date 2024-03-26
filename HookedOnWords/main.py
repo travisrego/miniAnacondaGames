@@ -136,14 +136,22 @@ while (lives):
         attempts = 7-lives+iteration;
         #  Break the while loop
         lives = 0;
+        break;
 
     isPresent = False;
     print(f"Lives: {lives}");
     print(f"Hint: {hint}");
     print(f"{censorValue}");
     char = input("Guess a character or the whole word: ");
-    char = char.lower();
-    guessedLetters.append(char);
+    if char and char[0].isalpha():  # Check if char is not empty and is an alphabet character
+        char = char[0].lower();  # Convert to lowercase
+        if char not in guessedLetters:
+            guessedLetters.append(char);
+        else:
+            print(f"{char} has already been guessed! Try another letter.");
+    else:
+        print("Please enter a valid alphabet character.");
+        continue;
     tempList = [];
     # Censor and uncensoring mechanism
     for letter in value:
@@ -156,7 +164,7 @@ while (lives):
         elif letter == " ":
             tempList.append(" ");
         # If the whole word is guessed
-        elif (char.lower() == value.lower()):
+        elif (char == value.lower()):
             tempList = list(value);
             remainLives = lives; 
             attempts = 7-lives+iteration;
@@ -173,12 +181,16 @@ while (lives):
     if (isPresent != True and lives > 0):
         lives -= 1;
 
-if (censorValue.lower() == value.lower() and attempts > 1):
-    print(f"You survived! You guessed the word correctly in {attempts} attempts with {remainLives} lives remaining!"); 
-elif (attempts == 1):
-    print(f"You survived! You guessed the word correctly in your first attempt!"); 
-else: 
-    print(f"You died! You did not guess the word. The word was {value}");
+print(value);
+
+if (censorValue.lower() == value.lower()):
+    if attempts > 1:
+        print(f"You survived! You guessed the word correctly in {attempts} attempts with {remainLives} lives remaining!")
+    elif attempts == 1 and remainLives == 7:
+        print(f"You survived! You guessed the word correctly in your first attempt!")
+else:
+    print(f"You died! You did not guess the word.")
+
 
 
 # sameCharacterIndices = [];
