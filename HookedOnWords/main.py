@@ -143,6 +143,7 @@ while (lives):
     print(f"Hint: {hint}");
     print(f"{censorValue}");
     char = input("Guess a character or the whole word: ");
+    wholeWord = char; 
     if char and char[0].isalpha():  # Check if char is not empty and is an alphabet character
         char = char[0].lower();  # Convert to lowercase
         if char not in guessedLetters:
@@ -164,7 +165,7 @@ while (lives):
         elif letter == " ":
             tempList.append(" ");
         # If the whole word is guessed
-        elif (char == value.lower()):
+        elif (wholeWord == value.lower()):
             tempList = list(value);
             remainLives = lives; 
             attempts = 7-lives+iteration;
