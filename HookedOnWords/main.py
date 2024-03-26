@@ -149,9 +149,11 @@ while (lives):
         if char not in guessedLetters:
             guessedLetters.append(char);
         else:
+            iteration -= 1; 
             print(f"{char} has already been guessed! Try another letter.");
     else:
         print("Please enter a valid alphabet character.");
+        iteration -= 1; 
         continue;
     tempList = [];
     # Censor and uncensoring mechanism
@@ -165,7 +167,7 @@ while (lives):
         elif letter == " ":
             tempList.append(" ");
         # If the whole word is guessed
-        elif (wholeWord == value.lower()):
+        elif (wholeWord.lower() == value.lower()):
             tempList = list(value);
             remainLives = lives; 
             attempts = 7-lives+iteration;
@@ -186,11 +188,11 @@ print(value);
 
 if (censorValue.lower() == value.lower()):
     if attempts > 1:
-        print(f"You survived! You guessed the word correctly in {attempts} attempts with {remainLives} lives remaining!")
+        print(f"You survived! You guessed the word correctly in {attempts} attempts with {remainLives} lives remaining!");
     elif attempts == 1 and remainLives == 7:
-        print(f"You survived! You guessed the word correctly in your first attempt!")
+        print(f"You survived! You guessed the word correctly in your first attempt!");
 else:
-    print(f"You died! You did not guess the word.")
+    print(f"You died! You did not guess the word.");
 
 
 
